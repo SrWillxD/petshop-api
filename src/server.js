@@ -3,10 +3,13 @@ const app = express();
 import cors from 'cors';
 import animalsRoute from './Routes/animals.route.js';
 import ownersRoute from './Routes/owners.route.js';
+import connectToDatabase from './Database/database.js';
 
 const port = 3333;
 app.use(cors());
 app.use(express.json());
+
+connectToDatabase();
 
 app.use('/owners', ownersRoute);
 app.use('/animals', animalsRoute);
