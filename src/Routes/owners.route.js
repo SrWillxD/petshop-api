@@ -4,5 +4,6 @@ import ownersControllerOBJ from '../Controllers/owners.controller.js';
 
 routes.get("/getowners", ownersControllerOBJ.getOwnersData);
 routes.post("/makeowners", ownersControllerOBJ.makeOwnersData);
+routes.put("/updateowners", ownersControllerOBJ.updateOwnerData);
 
 export default routes;
