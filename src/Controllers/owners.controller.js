@@ -83,9 +83,42 @@ const ownersControllerOBJ = {
                 client.release();
             }
         }
+    },
+    async deleteOwnerData(req, res, next) {
+        let client;
+        try {
+            const owner_id = parseInt(req.params.owner_id);
+
+            if(isNaN(owner_id)){
+                return res.status(400).json({ error: "O parâmetro owner_id deve ser um número válido."});
+            }
+
+            client = await pool.connect();
+
+            const animalQuery = 'SELECT * FROM animals WHERE owner_id = $1';
+            const animalResult = await client.query(animalQuery, [owner_id]);
+
+            if (animalResult.rows.length > 0) {
+                return res.status(409).json({ error: "Exclusão bloqueada: Existem animais associados a este proprietário." });
+            }
+    
+            const deleteQuery = 'DELETE FROM owners WHERE owner_id = $1 RETURNING *';
+            const deleteResult = await client.query(deleteQuery, [owner_id]);
+    
+            if (deleteResult.rows.length === 0) {
+                return res.status(404).json({ error: "Proprietário não encontrado." });
+            }
+    
+            res.status(204).send("");
+        } catch (err) {
+            console.error("Erro ao excluir um proprietário:", err);
+            res.status(500).json({ error: "Erro ao excluir um proprietário", err });
+        } finally {
+            if (client) {
+                client.release();
+            }
+        }
     }
-
-
 }
 
 export default ownersControllerOBJ;
