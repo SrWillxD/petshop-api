@@ -118,6 +118,35 @@ const ownersControllerOBJ = {
                 client.release();
             }
         }
+    },
+    async getOwnerByIdData(req, res, next) {
+        let client;
+        try {
+            const owner_id = parseInt(req.params.owner_id);
+    
+            if(isNaN(owner_id)){
+                return res.status(400).json({ error: "O parâmetro owner_id deve ser um número válido." });
+            }
+    
+            client = await pool.connect();
+    
+            const query = 'SELECT * FROM owners WHERE owner_id = $1';
+            const result = await client.query(query, [owner_id]);
+    
+            if(result.rows.length === 0){
+                return res.status(404).json({ error: "Proprietário não encontrado." });
+            }
+    
+            const owner = result.rows[0];
+            res.status(200).json(owner);
+        } catch (err) {
+            console.error("Erro ao buscar um proprietário:", err);
+            res.status(500).json({ error: "Erro ao buscar um proprietário", err });
+        } finally {
+            if(client){
+                client.release();
+            }
+        }
     }
 }
 
