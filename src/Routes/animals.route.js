@@ -6,5 +6,6 @@ routes.get("/getanimals", animalsControllerOBJ.getAnimalsData);
 routes.post("/makeanimals", animalsControllerOBJ.makeAnimalsData);
 routes.put("/updateanimals", animalsControllerOBJ.updateAnimalsData);
 routes.delete("/deleteanimals/:animals_id", animalsControllerOBJ.deleteAnimalsData);
+routes.get("/getanimalsbyid/:animals_id", animalsControllerOBJ.getAnimalByIdData);
 
 export default routes;

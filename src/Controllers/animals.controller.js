@@ -125,6 +125,35 @@ const animalsControllerOBJ = {
                 client.release();
             }
         }
+    },
+    async getAnimalByIdData(req, res, next) {
+        let client;
+        try {
+            const animals_id = parseInt(req.params.animals_id);
+    
+            if(isNaN(animals_id)){
+                return res.status(400).json({ error: "O parâmetro animals_id deve ser um número válido." });
+            }
+    
+            client = await pool.connect();
+    
+            const query = 'SELECT * FROM animals WHERE animals_id = $1';
+            const result = await client.query(query, [animals_id]);
+    
+            if(result.rows.length === 0){
+                return res.status(404).json({ error: "Animal não encontrado." });
+            }
+    
+            const owner = result.rows[0];
+            res.status(200).json(owner);
+        } catch (err) {
+            console.error("Erro ao buscar um animal:", err);
+            res.status(500).json({ error: "Erro ao buscar um animal", err });
+        } finally {
+            if(client){
+                client.release();
+            }
+        }
     }
 }
 
