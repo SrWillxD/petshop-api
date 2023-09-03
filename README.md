@@ -34,6 +34,6 @@ Resolução de um exercício proposto no bootcamp Node.js da instituição IGTI,
   * ``/getanimals``
   * ``/makeanimals``
   * ``/updateanimals``
-  * ``/deleteanimals``
+  * ``/deleteanimals/:animals_id``
   * ``/getanimalsbyid/:animals_id``
   * ``/getanimalsbyowner/:owner_id``
