@@ -154,6 +154,39 @@ const animalsControllerOBJ = {
                 client.release();
             }
         }
+    },
+    async getAnimalsByOwnerData(req, res, next){
+        let client;
+        try {
+            const owner_id  = parseInt(req.params.owner_id);
+    
+            if (isNaN(owner_id)) {
+                return res.status(400).json({ error: "proprietario_id must be a valid number." });
+            }
+
+            client = await pool.connect();
+
+            const ownerCheckQuery = 'SELECT * FROM owners WHERE owner_id = $1';
+            const ownerCheckResult = await client.query(ownerCheckQuery, [owner_id]);
+
+            if (ownerCheckResult.rows.length === 0) {
+                return res.status(404).json({ error: `Owner with owner_id ${owner_id} not found.` });
+            }
+
+            const query = 'SELECT * FROM animals WHERE owner_id = $1';
+            const result = await client.query(query, [owner_id]);
+
+            const animals = result.rows;
+
+            res.status(200).json(animals);
+        } catch (err) {
+            console.error("Erro ao buscar os animais do proprietário:", err);
+            res.status(500).json({ error: "Erro ao buscar os animais do proprietário", err });
+        } finally {
+            if (client) {
+                client.release();
+            }
+        }
     }
 }
 
