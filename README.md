@@ -21,15 +21,17 @@ Aplicação de estudos com a finalidade de simular uma API de um Pet Shop.
 
 ## 🏁 Endpoints
 ### Donos:
-* ``/getowners``
-* ``/makeowners``
-* ``/updateowners``
-* ``/deleteowners/:owner_id``
-* ``/getOwnerbyid/:owner_id``
+* localhost:3333/owners...
+  * ``/getowners``
+  * ``/makeowners``
+  * ``/updateowners``
+  * ``/deleteowners/:owner_id``
+  * ``/getOwnerbyid/:owner_id``
 ### Animais:
-* /getanimals
-* /makeanimals
-* /updateanimals
-* /deleteanimals
-* /getanimalsbyid/:animals_id
-* /getanimalsbyowner/:owner_id
+* localhost:3333/animals...
+  * /getanimals
+  * /makeanimals
+  * /updateanimals
+  * /deleteanimals
+  * /getanimalsbyid/:animals_id
+  * /getanimalsbyowner/:owner_id
