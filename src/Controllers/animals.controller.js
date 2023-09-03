@@ -97,6 +97,34 @@ const animalsControllerOBJ = {
                 client.release();
             }
         }
+    },
+    async deleteAnimalsData(req, res, next) {
+        let client;
+        try {
+            const animals_id = parseInt(req.params.animals_id);
+
+            if(isNaN(animals_id)){
+                return res.status(400).json({ error: "O parâmetro animals_id deve ser um número válido."});
+            }
+
+            client = await pool.connect();
+
+            const deleteQuery = 'DELETE FROM animals WHERE animals_id = $1 RETURNING *';
+            const deleteResult = await client.query(deleteQuery, [animals_id]);
+
+            if (deleteResult.rows.length === 0) {
+                return res.status(404).json({ error: "Animal não encontrado."});
+            }
+
+            res.status(204).send("");
+        } catch (err) {
+            console.error("Erro ao excluir um animal:", err);
+            res.status(500).json({ error: "Erro ao excluir um animal", err });
+        } finally {
+            if (client) {
+                client.release();
+            }
+        }
     }
 }
 
