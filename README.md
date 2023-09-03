@@ -3,14 +3,16 @@ Aplicação de estudos com a finalidade de simular uma API de um Pet Shop.
 
 ## 💻 Tecnologias utilizadas:
 * 📜 JavaScript
-* 🌐 Express
+* 📦 Node.js
+* 🌐 Express.js
 * 🔄 Nodemon
-* 🔀 Cors
+* 🔀 CORS
 * 🔑 Dotenv
 * 🐘 Pg
 * 🐘 ElephantSQL
 
 ## 🐱 Sobre o projeto
+Resolução de um exercício proposto no bootcamp Node.js da instituição IGTI, foi desenvolvido a criação de tabelas via ElephantSQL, sua respectiva conexão e os endpoints descritos na sessão "🏁 Endpoints".
 
 ## 👀 Observações
 * O arquivo ```.env.example``` deve ser renomeado para ```.env``` e preenchido corretamente com a string de conexão.
